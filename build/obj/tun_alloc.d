@@ -1,2 +1,2 @@
-build/obj/tun_alloc.o: src/tun_alloc.c src/tun_alloc.h
-src/tun_alloc.h:
+build/obj/tun_alloc.o: src/tun_alloc.c include/tun_alloc.h
+include/tun_alloc.h:

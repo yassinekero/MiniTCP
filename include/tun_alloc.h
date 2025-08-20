@@ -11,6 +11,7 @@
 
 
 int tun_alloc(const char *dev);
-
+int read_tun(int fd, char* buf);
+int write_tun(int fd, char* buf, size_t size);
 
 #endif // TUN_ALLOC_H
