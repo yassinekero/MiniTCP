@@ -2,7 +2,7 @@
 #include <errno.h>
 #include <stdint.h>
 #include "ipv4.h"
-
+#include "formatter.h"
 
 int main(void)
 {
@@ -24,23 +24,16 @@ int main(void)
       perror("read");
       break;
     }
-    uint16_t proto = 0x00;
-    proto = (proto  | buffer[2]) << 8;
-    proto = proto | buffer[3];
+    uint16_t eth_protocol = 0x00;
+    eth_protocol = (eth_protocol  | buffer[2]) << 8;
+    eth_protocol = eth_protocol | buffer[3];
     //Skip Non IPV4 packets
-    if(proto != 0x0800) 
+    if(eth_protocol != 0x0800) 
       continue;
-    printf("Read %d bytes from %s\n", nread, ifname);
+    printf("\nRead %d bytes from %s\n", nread, ifname);
     get_ipv4_header(&header, buffer);
-    printf("%x", header.source_ip);
-    
-    /* printf("["); */
-    /* for(int i = 0; i < nread; i++) */
-    /* { */
-    /*   printf("%x, ", buffer[i]); */
-    /* } */
-    printf("]");
-    printf("\n");
+    print_ipv4_packet(&header);
+
      /* int nwrite = write(fd, buffer, nread); */
      /* if(nwrite < 0) */
      /* { */

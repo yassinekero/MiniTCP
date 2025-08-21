@@ -1,6 +1,6 @@
 #ifndef IPV4_H
 #define IPV4_H
-
+#include <stdint.h>
 typedef struct
 {
   uint32_t source_ip;
