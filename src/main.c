@@ -15,7 +15,7 @@ int main(void)
   }
 
   uint8_t buffer[1500];
-  ipv4_header header;
+  Ipv4Header  header;
   while(1)
   {
     int nread = read(fd, buffer, sizeof(buffer));
@@ -30,8 +30,12 @@ int main(void)
     //Skip Non IPV4 packets
     if(eth_protocol != 0x0800) 
       continue;
+
+    parse_ipv4_header(&header, buffer, sizeof buffer);
+    //Skip Non TCP segments
+    if(header.protocol != 0x06)
+      continue;
     printf("\nRead %d bytes from %s\n", nread, ifname);
-    get_ipv4_header(&header, buffer);
     print_ipv4_packet(&header);
 
      /* int nwrite = write(fd, buffer, nread); */

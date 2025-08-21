@@ -1,6 +1,7 @@
 #ifndef IPV4_H
 #define IPV4_H
 #include <stdint.h>
+#include <stddef.h>
 typedef struct
 {
   uint32_t source_ip;
@@ -15,10 +16,10 @@ typedef struct
   uint16_t header_checksum;
   uint8_t ttl;
   uint8_t protocol;
-} ipv4_header;
+} Ipv4Header;
 
 
-void get_ipv4_header(ipv4_header* ipv4_header, uint8_t* buffer);
+int parse_ipv4_header(Ipv4Header* header, uint8_t* buffer, size_t size);
 
 
 #endif // IPV4_H

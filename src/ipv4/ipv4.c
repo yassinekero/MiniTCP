@@ -1,19 +1,22 @@
 #include "ipv4.h"
 
-void get_ipv4_header(ipv4_header* ipv4_header, uint8_t* buffer)
+int parse_ipv4_header(Ipv4Header* header, uint8_t* buffer, size_t size)
 {
-  ipv4_header->version = buffer[4] >> 4 ;
-  ipv4_header->total_length = buffer[6];
-  ipv4_header->id = ((uint16_t)buffer[8] << 8 | (uint16_t) buffer[9]);
-  ipv4_header->ttl = buffer[12];
-  ipv4_header->protocol = buffer[13];
-  ipv4_header->source_ip = ((uint32_t) buffer[16] << 24 
+  if(size < 20)
+    return -1;
+  header->version = buffer[4] >> 4 ;
+  header->total_length = buffer[6];
+  header->id = ((uint16_t)buffer[8] << 8 | (uint16_t) buffer[9]);
+  header->ttl = buffer[12];
+  header->protocol = buffer[13];
+  header->source_ip = ((uint32_t) buffer[16] << 24 
       | (uint32_t)buffer[17] << 16 
       | (uint32_t)buffer[18] << 8 
       | (uint32_t) buffer[19]);
-  ipv4_header->dest_ip = ((uint32_t) buffer[20] << 24 
+  header->dest_ip = ((uint32_t) buffer[20] << 24 
       | (uint32_t)buffer[21] << 16 
       | (uint32_t)buffer[22] << 8 
       | (uint32_t) buffer[23]);
-
+  return 1;
 }
+

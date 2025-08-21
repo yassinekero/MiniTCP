@@ -5,7 +5,7 @@
 #include "ipv4.h"
 
 
-void print_ipv4_packet(ipv4_header* header);
+void print_ipv4_packet(Ipv4Header* header);
 void ipv4_addr_notation(char* ip_str, size_t size, uint32_t ip_addr);
 
 
