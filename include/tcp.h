@@ -4,15 +4,16 @@
 #include <stddef.h>
 typedef struct
 {
-  uint16_t source_port;
-  uint16_t dest_port;
   uint32_t seq;
   uint32_t ack;
-  uint16_t header_length : 4;
+  uint16_t source_port;
+  uint16_t dest_port;
+  uint16_t data_offset : 4;
   uint16_t flags: 6;
   uint16_t window_size;
   uint16_t chucksum;
   uint16_t urgent_pointer;
 } TcpHeader;
+
 int tcp_header_parse(TcpHeader* header, uint8_t* buffer, size_t size);
 #endif // TCP_H

@@ -19,7 +19,7 @@ typedef struct
 } Ipv4Header;
 
 
-int parse_ipv4_header(Ipv4Header* header, uint8_t* buffer, size_t size);
+int ipv4_header_parse(Ipv4Header* header, uint8_t* buffer, size_t size);
 
 
 #endif // IPV4_H

@@ -2,8 +2,11 @@
 #include <errno.h>
 #include <stdint.h>
 #include "ipv4.h"
+#include "tcp.h"
 #include "formatter.h"
 
+
+#define ONLY_TCP 1
 int main(void)
 {
   int fd;
@@ -15,7 +18,8 @@ int main(void)
   }
 
   uint8_t buffer[1500];
-  Ipv4Header  header;
+  Ipv4Header  ip_header;
+  TcpHeader tcp_header;
   while(1)
   {
     int nread = read(fd, buffer, sizeof(buffer));
@@ -31,12 +35,19 @@ int main(void)
     if(eth_protocol != 0x0800) 
       continue;
 
-    parse_ipv4_header(&header, buffer, sizeof buffer);
+    ipv4_header_parse(&ip_header, buffer, sizeof buffer);
     //Skip Non TCP segments
-    if(header.protocol != 0x06)
+    #if ONLY_TCP == 1
+    if(ip_header.protocol != 0x06)
       continue;
+    #endif
+    tcp_header_parse(&tcp_header, buffer, sizeof buffer);
+    
     printf("\nRead %d bytes from %s\n", nread, ifname);
-    print_ipv4_packet(&header);
+    ipv4_print_packet(&ip_header);
+    printf("\n");
+    tcp_print_segment(&tcp_header);
+
 
      /* int nwrite = write(fd, buffer, nread); */
      /* if(nwrite < 0) */
