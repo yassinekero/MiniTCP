@@ -15,6 +15,6 @@ void ipv4_print_packet(Ipv4Header* header)
 }
 void tcp_print_segment(TcpHeader* header)
 {
-  printf("src port: %d, dst port: %d", header->source_port, header->dest_port);
+  printf("src port: %d, dst port: %d", header->src_port, header->dest_port);
 }
 

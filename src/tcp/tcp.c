@@ -5,7 +5,7 @@ int tcp_header_parse(TcpHeader* header, uint8_t* buffer, size_t size)
 {
   if(size < 20)
     return -1;
- header->source_port = ((uint16_t)buffer[24] << 8 ) | (uint16_t)buffer[25];
+ header->src_port = ((uint16_t)buffer[24] << 8 ) | (uint16_t)buffer[25];
  header->dest_port = ((uint16_t)buffer[26] << 8 ) | (uint16_t)buffer[27];
  header->seq = ((uint32_t)buffer[26] << 24 )
    | ((uint32_t)buffer[27] << 16) 
